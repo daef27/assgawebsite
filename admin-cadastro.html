@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+
+    <title>ASSGA - Cadastro de Administrador</title>
+
+    <link rel="icon" href="src/imagens/Assga_foto.jpg" type="image/jpeg">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+        }
+
+        html,body{
+            min-height:100%;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:25px;
+            overflow-x:hidden;
+            background:
+                radial-gradient(circle at 15% 20%,rgba(255,215,0,.18),transparent 30%),
+                radial-gradient(circle at 85% 80%,rgba(0,120,255,.22),transparent 35%),
+                linear-gradient(135deg,#001d3d,#003366 48%,#0057b8);
+        }
+
+        .background-circle{
+            position:fixed;
+            border-radius:50%;
+            pointer-events:none;
+            filter:blur(2px);
+        }
+
+        .circle-one{
+            width:300px;
+            height:300px;
+            top:-120px;
+            left:-100px;
+            border:1px solid rgba(255,255,255,.12);
+            box-shadow:0 0 100px rgba(255,215,0,.10);
+        }
+
+        .circle-two{
+            width:420px;
+            height:420px;
+            right:-180px;
+            bottom:-180px;
+            border:1px solid rgba(255,255,255,.10);
+            box-shadow:0 0 120px rgba(0,174,255,.15);
+        }
+
+        .cadastro-wrapper{
+            width:min(100%,500px);
+            position:relative;
+            z-index:2;
+        }
+
+        .brand{
+            text-align:center;
+            color:#fff;
+            margin-bottom:20px;
+        }
+
+        .brand-logo{
+            width:72px;
+            height:82px;
+            object-fit:cover;
+            background:#fff;
+            border-radius:12px;
+            padding:4px;
+            box-shadow:0 10px 30px rgba(0,0,0,.25);
+            margin-bottom:10px;
+        }
+
+        .brand h1{
+            font-size:30px;
+            font-weight:900;
+            letter-spacing:2px;
+        }
+
+        .brand h1 span{
+            color:#ffd700;
+        }
+
+        .brand p{
+            margin-top:5px;
+            color:#dbeaff;
+            font-size:14px;
+        }
+
+        .card{
+            background:rgba(255,255,255,.97);
+            border:1px solid rgba(255,255,255,.45);
+            border-radius:24px;
+            padding:32px;
+            box-shadow:0 25px 70px rgba(0,0,0,.30);
+            backdrop-filter:blur(12px);
+        }
+
+        .card-title{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            margin-bottom:24px;
+        }
+
+        .card-title-icon{
+            width:48px;
+            height:48px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:14px;
+            color:#003366;
+            font-size:21px;
+            background:linear-gradient(135deg,#ffd700,#ffed4e);
+            box-shadow:0 8px 20px rgba(255,215,0,.28);
+        }
+
+        .card-title h2{
+            color:#003366;
+            font-size:22px;
+        }
+
+        .card-title p{
+            color:#738093;
+            font-size:13px;
+            margin-top:2px;
+        }
+
+        .form-group{
+            margin-bottom:17px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:7px;
+            color:#003366;
+            font-size:14px;
+            font-weight:800;
+        }
+
+        .input-wrapper{
+            position:relative;
+        }
+
+        .input-wrapper > i{
+            position:absolute;
+            left:15px;
+            top:50%;
+            transform:translateY(-50%);
+            color:#0057b8;
+            pointer-events:none;
+        }
+
+        input{
+            width:100%;
+            height:48px;
+            border:1px solid #d4dce6;
+            border-radius:11px;
+            outline:none;
+            background:#f8fafc;
+            color:#26364a;
+            padding:0 44px;
+            font-size:14px;
+            transition:.25s ease;
+        }
+
+        input:focus{
+            background:#fff;
+            border-color:#006bd6;
+            box-shadow:0 0 0 4px rgba(0,107,214,.10);
+        }
+
+        .toggle-password{
+            position:absolute;
+            right:13px;
+            top:50%;
+            transform:translateY(-50%);
+            border:0;
+            background:transparent;
+            color:#718096;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        .senha-forca{
+            height:5px;
+            margin-top:8px;
+            border-radius:20px;
+            background:#e6ebf1;
+            overflow:hidden;
+        }
+
+        .senha-forca span{
+            display:block;
+            height:100%;
+            width:0;
+            border-radius:20px;
+            transition:.3s;
+        }
+
+        .senha-info{
+            margin-top:7px;
+            color:#718096;
+            font-size:11px;
+        }
+
+        .termos{
+            display:flex;
+            gap:9px;
+            align-items:flex-start;
+            margin:18px 0;
+            color:#5d6b7c;
+            font-size:12px;
+            line-height:1.5;
+        }
+
+        .termos input{
+            width:17px;
+            height:17px;
+            min-width:17px;
+            margin-top:1px;
+            padding:0;
+            accent-color:#0057b8;
+            box-shadow:none;
+        }
+
+        .btn-cadastrar{
+            width:100%;
+            height:50px;
+            border:0;
+            border-radius:12px;
+            cursor:pointer;
+            color:#003366;
+            font-size:15px;
+            font-weight:900;
+            background:linear-gradient(135deg,#ffd700,#ffed4e);
+            box-shadow:0 10px 25px rgba(255,193,7,.25);
+            transition:.25s ease;
+        }
+
+        .btn-cadastrar:hover{
+            transform:translateY(-2px);
+            box-shadow:0 14px 30px rgba(255,193,7,.35);
+        }
+
+        .btn-cadastrar:active{
+            transform:translateY(0);
+        }
+
+        .login-link{
+            text-align:center;
+            margin-top:20px;
+            font-size:13px;
+            color:#687789;
+        }
+
+        .login-link a{
+            color:#0057b8;
+            text-decoration:none;
+            font-weight:800;
+        }
+
+        .login-link a:hover{
+            text-decoration:underline;
+        }
+
+        .aviso{
+            display:none;
+            margin-bottom:18px;
+            padding:12px 14px;
+            border-radius:11px;
+            font-size:13px;
+            line-height:1.5;
+        }
+
+        .aviso.show{
+            display:block;
+        }
+
+        .aviso.erro{
+            color:#842029;
+            background:#f8d7da;
+            border-left:4px solid #dc3545;
+        }
+
+        .aviso.sucesso{
+            color:#0f5132;
+            background:#d1e7dd;
+            border-left:4px solid #198754;
+        }
+
+        .rodape{
+            text-align:center;
+            color:rgba(255,255,255,.72);
+            font-size:11px;
+            margin-top:18px;
+        }
+
+        @media(max-width:600px){
+            body{
+                padding:15px;
+            }
+
+            .card{
+                padding:23px 18px;
+                border-radius:19px;
+            }
+
+            .brand h1{
+                font-size:25px;
+            }
+
+            .brand-logo{
+                width:62px;
+                height:72px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-circle circle-one"></div>
+    <div class="background-circle circle-two"></div>
+
+    <main class="cadastro-wrapper">
+
+        <div class="brand">
+            <img
+                class="brand-logo"
+                src="src/imagens/Assga_foto.jpg"
+                alt="Logo ASSGA"
+            >
+
+            <h1>ASS<span>GA</span></h1>
+            <p>Painel Administrativo</p>
+        </div>
+
+        <section class="card">
+
+            <div class="card-title">
+                <div class="card-title-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+
+                <div>
+                    <h2>Cadastrar administrador</h2>
+                    <p>Crie o acesso para gerenciamento do site.</p>
+                </div>
+            </div>
+
+            <div id="aviso" class="aviso"></div>
+
+            <form id="formCadastro" autocomplete="off">
+
+                <div class="form-group">
+                    <label for="nome">
+                        <i class="fas fa-user"></i>
+                        Nome do administrador
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+
+                        <input
+                            id="nome"
+                            name="nome"
+                            type="text"
+                            placeholder="Digite o nome"
+                            maxlength="80"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="usuario">
+                        <i class="fas fa-id-badge"></i>
+                        Usuário
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fas fa-at"></i>
+
+                        <input
+                            id="usuario"
+                            name="usuario"
+                            type="text"
+                            placeholder="Digite o usuário"
+                            minlength="3"
+                            maxlength="30"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">
+                        <i class="fas fa-lock"></i>
+                        Senha
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fas fa-key"></i>
+
+                        <input
+                            id="senha"
+                            name="senha"
+                            type="password"
+                            placeholder="Crie uma senha"
+                            minlength="6"
+                            maxlength="100"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="senha"
+                            aria-label="Mostrar senha"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="senha-forca">
+                        <span id="barraForca"></span>
+                    </div>
+
+                    <div class="senha-info" id="senhaInfo">
+                        Use pelo menos 6 caracteres.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmarSenha">
+                        <i class="fas fa-shield-alt"></i>
+                        Confirmar senha
+                    </label>
+
+                    <div class="input-wrapper">
+                        <i class="fas fa-check-double"></i>
+
+                        <input
+                            id="confirmarSenha"
+                            name="confirmarSenha"
+                            type="password"
+                            placeholder="Digite a senha novamente"
+                            minlength="6"
+                            maxlength="100"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="confirmarSenha"
+                            aria-label="Mostrar senha"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <label class="termos">
+                    <input
+                        id="aceito"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+                        Confirmo que este cadastro será utilizado para
+                        administrar o sistema ASSGA.
+                    </span>
+                </label>
+
+                <button
+                    type="submit"
+                    class="btn-cadastrar"
+                >
+                    <i class="fas fa-user-plus"></i>
+                    Criar administrador
+                </button>
+
+            </form>
+
+            <div class="login-link">
+                Já possui acesso?
+                <a href="admin-login.html">Entrar no painel</a>
+            </div>
+
+        </section>
+
+        <div class="rodape">
+            ASSGA • Sistema Administrativo
+        </div>
+
+    </main>
+
+    <script>
+        "use strict";
+
+        const form = document.getElementById("formCadastro");
+        const aviso = document.getElementById("aviso");
+        const senha = document.getElementById("senha");
+        const confirmarSenha = document.getElementById("confirmarSenha");
+        const barraForca = document.getElementById("barraForca");
+        const senhaInfo = document.getElementById("senhaInfo");
+
+        function mostrarAviso(mensagem, tipo) {
+            aviso.textContent = mensagem;
+            aviso.className = "aviso show " + tipo;
+        }
+
+        function calcularForcaSenha(valor) {
+            let pontos = 0;
+
+            if (valor.length >= 6) pontos++;
+            if (valor.length >= 10) pontos++;
+            if (/[A-Z]/.test(valor)) pontos++;
+            if (/[a-z]/.test(valor)) pontos++;
+            if (/[0-9]/.test(valor)) pontos++;
+            if (/[^A-Za-z0-9]/.test(valor)) pontos++;
+
+            return pontos;
+        }
+
+        senha.addEventListener("input", () => {
+            const pontos = calcularForcaSenha(senha.value);
+
+            const percentual = Math.min(100, pontos * 16.67);
+
+            barraForca.style.width = percentual + "%";
+
+            if (!senha.value) {
+                barraForca.style.width = "0";
+                senhaInfo.textContent = "Use pelo menos 6 caracteres.";
+                return;
+            }
+
+            if (pontos <= 2) {
+                senhaInfo.textContent = "Senha fraca.";
+            } else if (pontos <= 4) {
+                senhaInfo.textContent = "Senha média.";
+            } else {
+                senhaInfo.textContent = "Senha forte.";
+            }
+        });
+
+        document.querySelectorAll(".toggle-password").forEach((botao) => {
+            botao.addEventListener("click", () => {
+                const campo = document.getElementById(botao.dataset.target);
+                const icone = botao.querySelector("i");
+
+                if (campo.type === "password") {
+                    campo.type = "text";
+                    icone.className = "fas fa-eye-slash";
+                } else {
+                    campo.type = "password";
+                    icone.className = "fas fa-eye";
+                }
+            });
+        });
+
+        confirmarSenha.addEventListener("input", () => {
+            if (
+                confirmarSenha.value &&
+                senha.value !== confirmarSenha.value
+            ) {
+                confirmarSenha.setCustomValidity("As senhas não conferem.");
+            } else {
+                confirmarSenha.setCustomValidity("");
+            }
+        });
+
+        form.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const usuario = document.getElementById("usuario").value.trim();
+            const senhaValor = senha.value;
+            const confirmarValor = confirmarSenha.value;
+
+            if (nome.length < 2) {
+                mostrarAviso("Digite um nome válido.", "erro");
+                return;
+            }
+
+            if (usuario.length < 3) {
+                mostrarAviso("O usuário precisa ter pelo menos 3 caracteres.", "erro");
+                return;
+            }
+
+            if (senhaValor.length < 6) {
+                mostrarAviso("A senha precisa ter pelo menos 6 caracteres.", "erro");
+                return;
+            }
+
+            if (senhaValor !== confirmarValor) {
+                mostrarAviso("As senhas não conferem.", "erro");
+                return;
+            }
+
+            if (!document.getElementById("aceito").checked) {
+                mostrarAviso(
+                    "Confirme que o cadastro será utilizado no sistema ASSGA.",
+                    "erro"
+                );
+                return;
+            }
+
+            /*
+             * Compatibilidade com o adminpainel.js:
+             * assga_admin_usuario é utilizado para exibir
+             * o administrador no painel.
+             *
+             * ATENÇÃO:
+             * Este cadastro usa localStorage e é apropriado
+             * apenas para um projeto front-end/local.
+             * Para produção, a senha deve ser tratada por
+             * um backend com autenticação segura.
+             */
+
+            localStorage.setItem("assga_admin_usuario", usuario);
+            localStorage.setItem("assga_admin_nome", nome);
+
+            /*
+             * Mantemos a senha somente para compatibilidade
+             * com uma autenticação local existente.
+             */
+            localStorage.setItem("assga_admin_senha", senhaValor);
+
+            mostrarAviso(
+                "Administrador cadastrado com sucesso! Redirecionando para o login...",
+                "sucesso"
+            );
+
+            form.querySelector("button[type='submit']").disabled = true;
+
+            setTimeout(() => {
+                window.location.href = "admin-login.html";
+            }, 1200);
+        });
+    </script>
+
+</body>
+</html>
