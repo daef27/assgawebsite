@@ -1,13 +1,1 @@
-{
-  "name": "assga-site",
-  "version": "1.0.0",
-  "description": "ASSGA - site público e painel administrativo",
-  "main": "server.js",
-  "scripts": { "start": "node server.js", "dev": "node server.js" },
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "better-sqlite3": "^12.4.1",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
-  }
-}
+{"name":"assga-netlify","version":"1.0.0","private":true,"dependencies":{"@netlify/blobs":"^10.0.0","bcryptjs":"^3.0.2","jsonwebtoken":"^9.0.2"}}

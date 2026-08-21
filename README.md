@@ -1,30 +1,13 @@
-# ASSGA - Site completo
+# ASSGA — Netlify
+Site público + painel administrativo + Netlify Functions + Netlify Blobs.
 
-## Estrutura
-- 6 páginas públicas: index, historia, esportiva, evento, estatuto, diretoria
-- admin-login.html
-- admin-cadastro.html
-- management.html
-- API Node/Express
-- banco SQLite persistente em data/assga.db
-- autenticação JWT + senha com bcrypt
-- CRUD de conteúdos e eventos
+## Publicação
+1. Envie a pasta para GitHub ou faça deploy pelo Netlify.
+2. Em Netlify > Project configuration > Environment variables, crie:
+   ASSGA_JWT_SECRET = chave longa e aleatória
+   ASSGA_SETUP_KEY = chave temporária para cadastro inicial
+3. Faça o deploy.
+4. Abra /admin-cadastro.html e crie o primeiro administrador usando ASSGA_SETUP_KEY.
+5. Entre em /admin-login.html e depois /management.html.
 
-## Rodar
-1. Instale Node.js 18+.
-2. Abra o terminal nesta pasta.
-3. Execute:
-   npm install
-   npm start
-4. Abra:
-   http://localhost:3000/admin-cadastro.html
-5. Crie o primeiro administrador.
-6. Entre em:
-   http://localhost:3000/admin-login.html
-7. Edite o site no painel.
-
-## Produção
-Defina uma chave forte:
-JWT_SECRET="uma-chave-secreta-forte" npm start
-
-O banco é criado automaticamente em data/assga.db.
+Não coloque essas chaves no código ou no netlify.toml.
