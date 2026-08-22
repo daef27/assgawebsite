@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ASSGA_CENTRAL_COMPLETO
 
 Sistema administrativo e site institucional da ASSGA.
@@ -22,3 +23,7 @@ Sistema administrativo e site institucional da ASSGA.
 
 ## Deploy
 - Configurado para Netlify com função `health` em `/api/health`.
+=======
+# ASSGA — Netlify
+Site público + painel administrativo + Netlify Functions + Netlify Blobs.
+>>>>>>> 3e28c050e33f47efdcf9a713fc32501370402add
