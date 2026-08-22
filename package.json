@@ -1,1 +1,0 @@
-{"name":"assga-netlify","version":"1.0.0","private":true,"dependencies":{"@netlify/blobs":"^10.0.0","bcryptjs":"^3.0.2","jsonwebtoken":"^9.0.2"}}

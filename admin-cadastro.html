@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -451,3 +452,6 @@ function mostrarErro(texto) {
 
 </body>
 </html>
+=======
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro | ASSGA</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></head><body><main class="hero"><div class="container" style="max-width:560px"><div class="form"><div class="section-title"><div class="brand-mark" style="margin:auto"><i class="fa-solid fa-user-shield"></i></div><h2>Cadastro inicial</h2><p>Cadastre o administrador do painel.</p></div><div class="notice">Informe a chave <strong>ASSGA_SETUP_KEY</strong>.</div><form id="f" class="grid2"><div class="field full"><label>Chave de configuração</label><input id="k" type="password" required></div><div class="field"><label>Nome</label><input id="n" required></div><div class="field"><label>Usuário</label><input id="u" required></div><div class="field full"><label>Senha</label><input id="s" type="password" minlength="6" required></div><div class="field full"><button class="btn btn-gold" type="submit"><i class="fa-solid fa-user-plus"></i> Cadastrar</button></div></form><div id="m" class="notice" style="display:none"></div><a class="btn btn-light" href="admin-login.html">Ir para login</a></div></div></main><script>f.onsubmit=e=>{e.preventDefault();let setup=localStorage.assgaSetupKey||"ASSGA_CADASTRO_2026";if(k.value!==setup){m.style.display="block";m.textContent="Chave inválida.";return}let a=JSON.parse(localStorage.assgaAdmins||"[]");if(a.some(x=>x.usuario===u.value.trim())){m.style.display="block";m.textContent="Usuário já existe.";return}a.push({nome:n.value.trim(),usuario:u.value.trim(),senha:s.value});localStorage.assgaAdmins=JSON.stringify(a);m.style.display="block";m.textContent="Administrador cadastrado!";f.reset()}</script></body></html>
+>>>>>>> 5407bab (ty dad)
