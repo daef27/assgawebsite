@@ -1,1 +1,35 @@
-const ASSGA={getData(){const d={siteName:"ASSGA",subtitle:"Associação com informação, esporte, eventos e participação.",historia:"A ASSGA reúne pessoas e ações para fortalecer a associação, preservar sua história e ampliar a participação.",esporte:"Projetos esportivos, atividades e informações para associados e comunidade.",evento:"Agenda de eventos, reuniões, atividades e ações da ASSGA.",estatuto:"Consulte aqui o estatuto e os documentos institucionais da ASSGA.",diretoria:"Conheça a diretoria e a organização administrativa da ASSGA.",eventos:[{data:"15/09/2026",titulo:"Evento ASSGA",local:"Sede da ASSGA",status:"Confirmado"},{data:"28/09/2026",titulo:"Encontro esportivo",local:"Quadra principal",status:"Programado"}]};try{return {...d,...JSON.parse(localStorage.getItem("assgaSiteData")||"{}")}}catch(e){return d}},saveData(d){localStorage.setItem("assgaSiteData",JSON.stringify(d))},apply(){const d=this.getData();document.querySelectorAll("[data-site-name]").forEach(e=>e.textContent=d.siteName);document.querySelectorAll("[data-subtitle]").forEach(e=>e.textContent=d.subtitle);document.querySelectorAll("[data-content]").forEach(e=>{if(d[e.dataset.content]!==undefined)e.textContent=d[e.dataset.content]});const t=document.querySelector("#eventosTabela tbody");if(t)t.innerHTML=d.eventos.map(x=>`<tr><td>${x.data}</td><td>${x.titulo}</td><td>${x.local}</td><td>${x.status}</td></tr>`).join("")},favorite(){const k="assgaFavorito";localStorage.setItem(k,localStorage.getItem(k)==="1"?"0":"1");this.updateFavorite()},updateFavorite(){const on=localStorage.getItem("assgaFavorito")==="1";document.querySelectorAll(".favorite").forEach(b=>b.innerHTML=on?'<i class="fa-solid fa-star"></i> Favorito':'<i class="fa-regular fa-star"></i> Favorito')}};document.addEventListener("DOMContentLoaded",()=>{ASSGA.apply();ASSGA.updateFavorite();document.querySelectorAll(".favorite").forEach(b=>b.onclick=()=>ASSGA.favorite());const m=document.querySelector(".menu-btn"),n=document.querySelector(".nav");if(m)m.onclick=()=>n.classList.toggle("open")});
+document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('navMenu');
+    if (toggle && nav) {
+        toggle.addEventListener('click', () => nav.classList.toggle('open'));
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => nav.classList.remove('open'));
+        });
+    }
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+});
+
+function showToast(msg, type = 'success') {
+    let toast = document.getElementById('globalToast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'globalToast';
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fas fa-check-circle"></i><span id="toastMsg">${msg}</span>`;
+        document.body.appendChild(toast);
+    } else {
+        toast.querySelector('#toastMsg').textContent = msg;
+    }
+    toast.className = 'toast ' + type;
+    toast.querySelector('i').className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    toast.classList.add('show');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => toast.classList.remove('show'), 3500);
+}

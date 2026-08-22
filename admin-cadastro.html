@@ -1,457 +1,64 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cadastro Inicial - ASSGA</title>
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
+    <title>ASSGA - Cadastro Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/styles.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-
-            background:
-                radial-gradient(circle at top left, #ffffff 0%, transparent 35%),
-                linear-gradient(135deg, #eaf2fb, #d7e6f7);
-        }
-
-        .cadastro-container {
-            width: min(470px, 100%);
-        }
-
-        .cadastro-box {
-            background: #ffffff;
-            padding: 32px;
-            border-radius: 22px;
-
-            box-shadow:
-                0 20px 50px rgba(0, 51, 102, 0.18);
-        }
-
-        .logo {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 18px;
-
-            background: linear-gradient(
-                135deg,
-                #003366,
-                #0057b8
-            );
-
-            color: #ffd700;
-            font-size: 32px;
-
-            box-shadow: 0 10px 25px rgba(0, 51, 102, .25);
-        }
-
-        h1 {
-            text-align: center;
-            color: #003366;
-            font-size: 27px;
-            margin-bottom: 8px;
-        }
-
-        .subtitulo {
-            text-align: center;
-            color: #657587;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .aviso {
-            padding: 14px 16px;
-            margin-bottom: 22px;
-
-            border-radius: 12px;
-
-            background: #eaf3ff;
-            border-left: 4px solid #0057b8;
-
-            color: #24496f;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .campo {
-            margin-bottom: 17px;
-        }
-
-        .campo label {
-            display: block;
-            margin-bottom: 7px;
-
-            color: #003366;
-            font-weight: 800;
-        }
-
-        .campo label i {
-            width: 20px;
-            color: #0057b8;
-        }
-
-        .campo input {
-            width: 100%;
-            height: 46px;
-
-            padding: 0 14px;
-
-            border: 1px solid #cbd7e4;
-            border-radius: 10px;
-
-            background: #f9fbfd;
-
-            color: #26384b;
-            font-size: 15px;
-
-            outline: none;
-
-            transition: .2s;
-        }
-
-        .campo input:focus {
-            border-color: #0057b8;
-
-            background: #ffffff;
-
-            box-shadow:
-                0 0 0 3px rgba(0, 87, 184, .12);
-        }
-
-        .btn-cadastrar {
-            width: 100%;
-            height: 48px;
-
-            border: 0;
-            border-radius: 10px;
-
-            background: linear-gradient(
-                135deg,
-                #ffd700,
-                #f2b900
-            );
-
-            color: #003366;
-
-            font-size: 15px;
-            font-weight: 900;
-
-            cursor: pointer;
-
-            box-shadow: 0 8px 20px rgba(220, 170, 0, .25);
-
-            transition: .2s;
-        }
-
-        .btn-cadastrar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(220, 170, 0, .35);
-        }
-
-        .mensagem {
-            margin-top: 18px;
-            padding: 12px;
-
-            border-radius: 10px;
-
-            text-align: center;
-
-            font-weight: 700;
-
-            display: none;
-        }
-
-        .mensagem.sucesso {
-            display: block;
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .mensagem.erro {
-            display: block;
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .voltar {
-            display: block;
-            text-align: center;
-
-            margin-top: 20px;
-
-            color: #0057b8;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .voltar:hover {
-            text-decoration: underline;
-        }
-
-        .rodape {
-            text-align: center;
-            margin-top: 18px;
-
-            color: #748396;
-            font-size: 12px;
-        }
-
-        @media (max-width: 500px) {
-            .cadastro-box {
-                padding: 24px 18px;
-            }
-
-            h1 {
-                font-size: 23px;
-            }
-        }
+        .register-page { display:flex; justify-content:center; align-items:center; min-height:100vh; background:linear-gradient(135deg, var(--azul), var(--azul-escuro)); padding:20px; }
+        .register-card { background:var(--branco); padding:40px 35px; border-radius:var(--radius); box-shadow:0 20px 60px rgba(0,0,0,0.3); width:100%; max-width:480px; border-top:6px solid var(--dourado); }
+        .register-card .logo { font-size:2.8rem; font-weight:700; color:var(--azul); text-align:center; }
+        .register-card .logo span { color:var(--dourado); }
+        .register-card .sub { color:#64748b; text-align:center; margin-bottom:28px; font-size:0.95rem; }
+        .register-card .form-group { margin-bottom:18px; }
+        .register-card .form-group label { display:block; font-weight:600; margin-bottom:6px; color:#1e293b; font-size:0.9rem; }
+        .register-card .form-group input { width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:8px; font-size:1rem; transition:var(--transition); background:#f8fafc; }
+        .register-card .form-group input:focus { border-color:var(--dourado); outline:none; box-shadow:0 0 0 4px rgba(212,160,23,0.12); }
+        .register-card .btn-register { width:100%; padding:14px; background:var(--dourado); color:var(--branco); border:none; border-radius:8px; font-size:1.1rem; font-weight:600; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:10px; }
+        .register-card .btn-register:hover { background:#b8890f; transform:translateY(-2px); }
+        .register-card .login-link { text-align:center; margin-top:18px; font-size:0.9rem; color:#475569; }
+        .register-card .login-link a { color:var(--azul); font-weight:600; text-decoration:none; }
+        .register-card .login-link a:hover { text-decoration:underline; }
     </style>
 </head>
-
 <body>
-
-<div class="cadastro-container">
-
-    <div class="cadastro-box">
-
-        <div class="logo">
-            <i class="fa-solid fa-user-shield"></i>
+    <div class="register-page">
+        <div class="register-card">
+            <div class="logo">ASSGA<span>.</span></div>
+            <div class="sub">Cadastro de Administrador</div>
+            <form id="adminRegisterForm">
+                <div class="form-group"><label><i class="fas fa-user"></i> Nome</label><input type="text" id="adminNome" placeholder="Nome completo" required></div>
+                <div class="form-group"><label><i class="fas fa-envelope"></i> E-mail</label><input type="email" id="adminEmail" placeholder="email@exemplo.com" required></div>
+                <div class="form-group"><label><i class="fas fa-user-tag"></i> Usuário</label><input type="text" id="adminUser" placeholder="nome_usuario" required></div>
+                <div class="form-group"><label><i class="fas fa-lock"></i> Senha</label><input type="password" id="adminPass" placeholder="Mínimo 6 caracteres" required minlength="6"></div>
+                <button type="submit" class="btn-register"><i class="fas fa-user-plus"></i> Cadastrar</button>
+            </form>
+            <div class="login-link">Já tem cadastro? <a href="admin-login.html">Fazer login</a></div>
         </div>
-
-        <h1>Cadastro inicial</h1>
-
-        <p class="subtitulo">
-            Crie o primeiro administrador do painel ASSGA.
-        </p>
-
-        <div class="aviso">
-            <i class="fa-solid fa-key"></i>
-            Informe a chave
-            <strong>ASSGA_SETUP_KEY</strong>
-            configurada no Netlify.
-        </div>
-
-        <form id="formCadastro">
-
-            <div class="campo">
-                <label for="chave">
-                    <i class="fa-solid fa-key"></i>
-                    Chave de configuração
-                </label>
-
-                <input
-                    type="password"
-                    id="chave"
-                    name="chave"
-                    placeholder="Digite a ASSGA_SETUP_KEY"
-                    autocomplete="off"
-                    required
-                >
-            </div>
-
-            <div class="campo">
-                <label for="nome">
-                    <i class="fa-solid fa-user"></i>
-                    Nome
-                </label>
-
-                <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    placeholder="Nome do administrador"
-                    required
-                >
-            </div>
-
-            <div class="campo">
-                <label for="usuario">
-                    <i class="fa-solid fa-id-card"></i>
-                    Usuário
-                </label>
-
-                <input
-                    type="text"
-                    id="usuario"
-                    name="usuario"
-                    placeholder="Ex.: admin"
-                    autocomplete="username"
-                    required
-                >
-            </div>
-
-            <div class="campo">
-                <label for="senha">
-                    <i class="fa-solid fa-lock"></i>
-                    Senha
-                </label>
-
-                <input
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    placeholder="Mínimo de 6 caracteres"
-                    autocomplete="new-password"
-                    minlength="6"
-                    required
-                >
-            </div>
-
-            <button
-                type="submit"
-                class="btn-cadastrar"
-            >
-                <i class="fa-solid fa-user-plus"></i>
-                Cadastrar administrador
-            </button>
-
-        </form>
-
-        <div
-            id="mensagem"
-            class="mensagem"
-        ></div>
-
-        <a
-            href="admin-login.html"
-            class="voltar"
-        >
-            <i class="fa-solid fa-arrow-left"></i>
-            Voltar para o login
-        </a>
-
     </div>
-
-    <div class="rodape">
-        ASSGA • Painel Administrativo
-    </div>
-
-</div>
-
-<script>
-
-const form = document.getElementById("formCadastro");
-const mensagem = document.getElementById("mensagem");
-
-form.addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-    const chave = document.getElementById("chave").value.trim();
-    const nome = document.getElementById("nome").value.trim();
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value;
-
-    mensagem.className = "mensagem";
-    mensagem.textContent = "";
-
-    if (!chave) {
-        mostrarErro("Informe a chave ASSGA_SETUP_KEY.");
-        return;
-    }
-
-    if (!nome) {
-        mostrarErro("Informe o nome do administrador.");
-        return;
-    }
-
-    if (!usuario) {
-        mostrarErro("Informe o usuário.");
-        return;
-    }
-
-    if (senha.length < 6) {
-        mostrarErro("A senha precisa ter pelo menos 6 caracteres.");
-        return;
-    }
-
-    try {
-
-        const resposta = await fetch(
-            "/api/admin/cadastro",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    chave,
-                    nome,
-                    usuario,
-                    senha
-                })
+    <script>
+        document.getElementById('adminRegisterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('adminNome').value.trim();
+            const email = document.getElementById('adminEmail').value.trim();
+            const usuario = document.getElementById('adminUser').value.trim();
+            const senha = document.getElementById('adminPass').value.trim();
+            if (!nome || !email || !usuario || !senha || senha.length < 6) {
+                alert('Preencha todos os campos (senha ≥ 6 caracteres).');
+                return;
             }
-        );
-
-        const dados = await resposta.json();
-
-        if (!resposta.ok) {
-            mostrarErro(
-                dados.erro || "Não foi possível cadastrar."
-            );
-            return;
-        }
-
-        mensagem.className = "mensagem sucesso";
-
-        mensagem.innerHTML =
-            '<i class="fa-solid fa-circle-check"></i> ' +
-            'Administrador criado com sucesso!';
-
-        form.reset();
-
-        setTimeout(() => {
-            window.location.href = "admin-login.html";
-        }, 1800);
-
-    } catch (erro) {
-
-        mostrarErro(
-            "Não foi possível conectar ao servidor."
-        );
-
-        console.error(erro);
-    }
-});
-
-function mostrarErro(texto) {
-
-    mensagem.className = "mensagem erro";
-
-    mensagem.innerHTML =
-        '<i class="fa-solid fa-circle-exclamation"></i> ' +
-        texto;
-}
-
-</script>
-
+            const admins = JSON.parse(localStorage.getItem('assga_admins') || '[]');
+            if (admins.some(a => a.usuario === usuario)) {
+                alert('Usuário já existe!');
+                return;
+            }
+            admins.push({ id: Date.now(), nome, email, usuario, senha });
+            localStorage.setItem('assga_admins', JSON.stringify(admins));
+            alert('Administrador cadastrado com sucesso!');
+            window.location.href = 'admin-login.html';
+        });
+    </script>
 </body>
 </html>
-=======
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro | ASSGA</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></head><body><main class="hero"><div class="container" style="max-width:560px"><div class="form"><div class="section-title"><div class="brand-mark" style="margin:auto"><i class="fa-solid fa-user-shield"></i></div><h2>Cadastro inicial</h2><p>Cadastre o administrador do painel.</p></div><div class="notice">Informe a chave <strong>ASSGA_SETUP_KEY</strong>.</div><form id="f" class="grid2"><div class="field full"><label>Chave de configuração</label><input id="k" type="password" required></div><div class="field"><label>Nome</label><input id="n" required></div><div class="field"><label>Usuário</label><input id="u" required></div><div class="field full"><label>Senha</label><input id="s" type="password" minlength="6" required></div><div class="field full"><button class="btn btn-gold" type="submit"><i class="fa-solid fa-user-plus"></i> Cadastrar</button></div></form><div id="m" class="notice" style="display:none"></div><a class="btn btn-light" href="admin-login.html">Ir para login</a></div></div></main><script>f.onsubmit=e=>{e.preventDefault();let setup=localStorage.assgaSetupKey||"ASSGA_CADASTRO_2026";if(k.value!==setup){m.style.display="block";m.textContent="Chave inválida.";return}let a=JSON.parse(localStorage.assgaAdmins||"[]");if(a.some(x=>x.usuario===u.value.trim())){m.style.display="block";m.textContent="Usuário já existe.";return}a.push({nome:n.value.trim(),usuario:u.value.trim(),senha:s.value});localStorage.assgaAdmins=JSON.stringify(a);m.style.display="block";m.textContent="Administrador cadastrado!";f.reset()}</script></body></html>
->>>>>>> 5407bab (ty dad)

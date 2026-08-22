@@ -1,13 +1,24 @@
-# ASSGA — Netlify
-Site público + painel administrativo + Netlify Functions + Netlify Blobs.
+# ASSGA_CENTRAL_COMPLETO
 
-## Publicação
-1. Envie a pasta para GitHub ou faça deploy pelo Netlify.
-2. Em Netlify > Project configuration > Environment variables, crie:
-   ASSGA_JWT_SECRET = chave longa e aleatória
-   ASSGA_SETUP_KEY = chave temporária para cadastro inicial
-3. Faça o deploy.
-4. Abra /admin-cadastro.html e crie o primeiro administrador usando ASSGA_SETUP_KEY.
-5. Entre em /admin-login.html e depois /management.html.
+Sistema administrativo e site institucional da ASSGA.
 
-Não coloque essas chaves no código ou no netlify.toml.
+## Tecnologias
+- HTML5, CSS3, JavaScript (ES6)
+- Font Awesome 6
+- LocalStorage para persistência
+- Netlify Functions (health check)
+
+## Funcionalidades
+- Site institucional com páginas: História, Esportiva, Eventos, Estatuto, Diretoria
+- Área administrativa com login, cadastro de administradores
+- Painel de gestão de eventos (CRUD, dashboard, publicação)
+- Design responsivo (mobile, tablet, desktop)
+- Menu adaptável com ícones
+
+## Como usar
+1. Abra `index.html` em qualquer navegador.
+2. Acesse `admin-login.html` para entrar (admin/123456).
+3. No painel, gerencie eventos e administradores.
+
+## Deploy
+- Configurado para Netlify com função `health` em `/api/health`.

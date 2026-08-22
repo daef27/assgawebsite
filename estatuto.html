@@ -1,1 +1,87 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estatuto | ASSGA</title><link rel="stylesheet" href="assets/styles.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></head><body><header class="site-header"><div class="header-inner"><a class="brand" href="index.html"><div class="brand-mark"><i class="fa-solid fa-shield-halved"></i></div><div><strong data-site-name>ASSGA</strong><small>Associação</small></div></a><button class="menu-btn"><i class="fa-solid fa-bars"></i></button><nav class="nav"><a class="" href="index.html"><i class="fa-solid fa-house"></i> Início</a><a class="" href="historia.html"><i class="fa-solid fa-book-open"></i> História</a><a class="" href="esportiva.html"><i class="fa-solid fa-futbol"></i> Esportiva</a><a class="" href="evento.html"><i class="fa-solid fa-calendar-days"></i> Eventos</a><a class="active" href="estatuto.html"><i class="fa-solid fa-file-contract"></i> Estatuto</a><a class="" href="diretoria.html"><i class="fa-solid fa-users"></i> Diretoria</a><button class="favorite"><i class="fa-regular fa-star"></i> Favorito</button></nav></div></header><main><section class="hero"><div class="container hero-grid"><div><span class="badge"><i class="fa-solid fa-file-contract"></i> ASSGA</span><h1>Estatuto</h1><p data-content="estatuto"></p><div class="btns"><a class="btn btn-primary" href="evento.html"><i class="fa-solid fa-calendar-check"></i> Eventos</a><a class="btn btn-gold" href="management.html"><i class="fa-solid fa-gauge-high"></i> Management</a></div></div><div class="hero-card"><div class="hero-icon"><i class="fa-solid fa-file-contract"></i></div><h2 data-site-name>ASSGA</h2><p data-subtitle></p></div></div></section><section class="section"><div class="container"><div class="card"><h2>Documento institucional</h2><p data-content="estatuto"></p></div></div></section></main><footer class="footer"><div class="container footer-grid"><div><h3>ASSGA</h3><p>Informação institucional, esportiva e eventos.</p></div><div><h3>Menu</h3><ul><li><a href="historia.html">História</a></li><li><a href="evento.html">Eventos</a></li><li><a href="diretoria.html">Diretoria</a></li></ul></div><div><h3>Administração</h3><ul><li><a href="admin-login.html">Login</a></li><li><a href="admin-cadastro.html">Cadastro</a></li></ul></div></div></footer><script src="assets/site.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASSGA - Estatuto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="brand"><i class="fas fa-shield-alt"></i> ASSGA<span>.</span></div>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <nav class="nav-menu" id="navMenu">
+            <a href="index.html"><i class="fas fa-home"></i> Início</a>
+            <a href="historia.html"><i class="fas fa-book"></i> História</a>
+            <a href="esportiva.html"><i class="fas fa-futbol"></i> Esportiva</a>
+            <a href="evento.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
+            <a href="estatuto.html" class="active"><i class="fas fa-file-alt"></i> Estatuto</a>
+            <a href="diretoria.html"><i class="fas fa-users"></i> Diretoria</a>
+            <a href="admin-login.html"><i class="fas fa-lock"></i> Admin</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title"><i class="fas fa-file-alt"></i> Estatuto</h1>
+        <div class="page-subtitle">Documento oficial da ASSGA</div>
+
+        <div style="background:var(--branco);border-radius:var(--radius);padding:28px;box-shadow:var(--sombra);">
+            <p style="line-height:1.8;color:#1e293b;">
+                O estatuto da ASSGA estabelece as normas de funcionamento, direitos e deveres dos associados, bem como a estrutura administrativa.
+            </p>
+            <p style="margin-top:16px;line-height:1.8;color:#334155;">
+                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo I - Da Associação<br>
+                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo II - Dos Associados<br>
+                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo III - Da Diretoria<br>
+                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo IV - Do Conselho Fiscal<br>
+                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo V - Das Eleições
+            </p>
+            <div style="margin-top:20px;padding:16px;background:#f0f4ff;border-radius:8px;">
+                <i class="fas fa-download" style="color:var(--azul);"></i> <a href="#" style="color:var(--azul);font-weight:600;">Baixar estatuto completo (PDF)</a>
+            </div>
+        </div>
+
+        <!-- EVENTOS PUBLICADOS -->
+        <div style="background:var(--branco);border-radius:var(--radius);padding:24px;box-shadow:var(--sombra);margin-top:24px;">
+            <h3 style="color:var(--azul);display:flex;gap:10px;margin-bottom:12px;">
+                <i class="fas fa-calendar-alt" style="color:var(--dourado);"></i> Eventos Publicados
+            </h3>
+            <div class="publish-grid" id="publicEventsEstatuto">
+                <div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px 0;">
+                    <i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:6px;"></i>
+                    Carregando eventos...
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">&copy; 2026 ASSGA</footer>
+    <script src="assets/site.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventos = JSON.parse(localStorage.getItem('assga_eventos') || '[]')
+                .filter(e => e.status === 'publicado');
+            const container = document.getElementById('publicEventsEstatuto');
+            if (eventos.length === 0) {
+                container.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px 0;">
+                    <i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:6px;"></i>
+                    Nenhum evento publicado no momento.
+                </div>`;
+            } else {
+                container.innerHTML = eventos.map(e => `
+                    <div class="publish-card">
+                        <div class="titulo">${e.titulo}</div>
+                        <div class="meta">
+                            <span><i class="fas fa-calendar-alt"></i> ${e.data ? e.data.split('-').reverse().join('/') : ''}</span>
+                            <span><i class="fas fa-tag"></i> Publicado</span>
+                        </div>
+                        <div class="desc">${e.descricao || 'Sem descrição'}</div>
+                        <span class="badge publicado">Publicado</span>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>
