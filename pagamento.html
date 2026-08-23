@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ASSGA - Pagamento e bilhete do cliente">
+    <meta name="theme-color" content="#003366">
+    <title>Pagamento - ASSGA</title>
+
+    <link rel="icon" href="src/imagens/Assga_foto.jpg" type="image/jpeg">
+    <link rel="shortcut icon" href="src/imagens/Assga_foto.jpg" type="image/jpeg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 45px 0 35px;
+            color: #003366;
+            font-size: 2.5em;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        h2 i {
+            color: #004aad;
+            margin-right: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        .badge-pago {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-pendente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-atrasado {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        header {
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 8px 32px rgba(0, 51, 102, .3);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform .3s ease;
+        }
+
+        .logo-area:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-area a {
+            display: flex;
+            text-decoration: none;
+        }
+
+        .logo-area img {
+            width: 56px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu {
+            list-style: none;
+            display: inline-grid;
+            grid-auto-flow: column;
+            gap: 10px;
+            margin-left: auto;
+            align-items: center;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px 17px;
+            border-radius: 25px;
+            transition: all .4s ease;
+        }
+
+        .menu a i {
+            margin-right: 7px;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .menu a:hover {
+            color: #003366;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            box-shadow: 0 8px 24px rgba(255, 215, 0, .4);
+            transform: translateY(-3px);
+        }
+
+        .menu a:hover i {
+            color: #fff;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            cursor: pointer;
+            margin-left: auto;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            background: transparent;
+            transition: .3s;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .menu-toggle i {
+            pointer-events: none;
+            color: #fff;
+        }
+
+        .page-banner {
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-banner h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .page-banner h1 i {
+            color: #ffd700;
+            margin-right: 15px;
+        }
+
+        .page-banner p {
+            font-size: 1.2em;
+            opacity: .9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .pagamento-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .1);
+            border-left: 6px solid #004aad;
+            transition: all .4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 50px rgba(0, 74, 173, .2);
+        }
+
+        .card h3 {
+            color: #003366;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+
+        .card h3 i {
+            color: #004aad;
+            margin-right: 8px;
+        }
+
+        /* BILHETE */
+        .bilhete {
+            background: linear-gradient(135deg, #f8f9fa, #fff);
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bilhete::before {
+            content: 'ASSGA';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 6em;
+            font-weight: 900;
+            color: rgba(0, 51, 102, .05);
+            letter-spacing: 10px;
+        }
+
+        .bilhete .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .bilhete .cabecalho .titulo-bilhete {
+            font-size: 1.2em;
+            font-weight: 900;
+            color: #003366;
+        }
+
+        .bilhete .cabecalho .titulo-bilhete i {
+            color: #ffd700;
+        }
+
+        .bilhete .cabecalho .numero-bilhete {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .bilhete .info-linha {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .bilhete .info-linha:last-child {
+            border-bottom: none;
+        }
+
+        .bilhete .info-linha .label {
+            color: #888;
+            font-weight: 600;
+        }
+
+        .bilhete .info-linha .valor {
+            font-weight: 700;
+            color: #003366;
+        }
+
+        .bilhete .info-linha .valor.destaque {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        .bilhete .status-bilhete {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .bilhete .status-bilhete.pago {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .bilhete .status-bilhete.pendente {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .bilhete .status-bilhete.atrasado {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .bilhete .qr-code {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .bilhete .qr-code .qr-placeholder {
+            display: inline-block;
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border: 2px solid #003366;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #003366;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .form-group label i {
+            color: #004aad;
+            margin-right: 6px;
+        }
+
+        .form-group label .obrigatorio {
+            color: #dc3545;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 15px;
+            border: 2px solid #dde1e8;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all .3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #004aad;
+            box-shadow: 0 0 0 4px rgba(0, 74, 173, .12);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 30px;
+            border: 2px solid #ffd700;
+            font-size: 1.05em;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(0, 51, 102, .25);
+            transition: all .3s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 74, 173, .35);
+        }
+
+        .btn-primary i {
+            color: #ffd700;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            border-color: #28a745;
+        }
+
+        .btn-success i {
+            color: #fff;
+        }
+
+        /* VAGAS */
+        .vagas-lista {
+            margin-top: 20px;
+        }
+
+        .vaga-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 6px;
+            transition: all .3s ease;
+            border-left: 4px solid #004aad;
+        }
+
+        .vaga-item:hover {
+            background: #f0f4fa;
+            transform: translateX(5px);
+        }
+
+        .vaga-item .vaga-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vaga-item .vaga-info .nome {
+            font-weight: 700;
+            color: #003366;
+        }
+
+        .vaga-item .vaga-info .email {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .vaga-item .vaga-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vaga-item .vaga-status .vaga-numero {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .vaga-item.ocupada {
+            border-left-color: #28a745;
+            opacity: .7;
+        }
+
+        .vaga-item.disponivel {
+            border-left-color: #ffc107;
+        }
+
+        /* ====================================================
+           FALE CONOSCO
+        ==================================================== */
+        .info {
+            background: linear-gradient(135deg, #e9eef5 0%, #d4e1ed 100%);
+            padding: 50px 20px;
+            margin-top: 40px;
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .info-card {
+            width: 250px;
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            padding: 28px 22px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+            transition: all .4s ease;
+            border-top: 4px solid #004aad;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 48px rgba(0, 74, 173, .2);
+            border-top-color: #ffd700;
+        }
+
+        .info-card .icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #003366, #004aad);
+            color: #ffd700;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(0, 51, 102, .25);
+            transition: .4s;
+        }
+
+        .info-card:hover .icon {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        .info-card h3 {
+            color: #003366;
+            margin: 12px 0;
+            font-size: 1.3em;
+        }
+
+        .info-card h3 i {
+            color: #004aad;
+            margin-right: 6px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .info-card a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            color: #fff;
+            background: #004aad;
+            margin-top: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all .3s ease;
+        }
+
+        .info-card a:hover {
+            color: #003366;
+            background: #ffd700;
+            transform: scale(1.15);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #003366 0%, #002244 100%);
+            color: #fff;
+            padding: 35px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: .9;
+        }
+
+        .footer-copy i {
+            color: #ffd700;
+            margin-right: 5px;
+        }
+
+        .footer-redes {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-redes a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 21px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .10);
+            text-decoration: none;
+            transition: all .3s ease;
+        }
+
+        .footer-redes a:hover {
+            color: #003366;
+            background: #ffd700;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        @media (max-width: 767px) {
+            header {
+                padding: 12px 15px;
+            }
+
+            .logo-area {
+                gap: 10px;
+            }
+
+            .logo-area img {
+                width: 48px;
+                height: 60px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 76px;
+                left: 15px;
+                right: 15px;
+                width: calc(100% - 30px);
+                grid-auto-flow: row;
+                gap: 4px;
+                margin: 0;
+                padding: 15px;
+                background: linear-gradient(135deg, rgba(0, 51, 102, .98), rgba(0, 74, 173, .98));
+                border-radius: 15px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, .30);
+            }
+
+            .menu.active {
+                display: grid;
+            }
+
+            .menu li {
+                width: 100%;
+                padding: 2px 0;
+            }
+
+            .menu a {
+                width: 100%;
+                text-align: left;
+                padding: 13px 15px;
+            }
+
+            .menu a i {
+                width: 25px;
+                text-align: center;
+                color: #fff;
+            }
+
+            .page-banner {
+                padding: 40px 15px;
+            }
+
+            .page-banner h1 {
+                font-size: 2em;
+            }
+
+            .page-banner p {
+                font-size: 1em;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .bilhete {
+                padding: 18px;
+            }
+
+            .bilhete .info-linha {
+                flex-direction: column;
+                padding: 4px 0;
+            }
+
+            .bilhete .info-linha .label {
+                font-size: 0.8em;
+            }
+
+            .bilhete .info-linha .valor {
+                font-size: 0.9em;
+            }
+
+            .bilhete .cabecalho {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .vaga-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .vaga-item .vaga-status {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin: 30px 0;
+            }
+
+            .info-card {
+                width: 100%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-redes {
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bilhete .qr-code .qr-placeholder {
+                width: 80px;
+                height: 80px;
+                font-size: 2em;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            header {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .menu {
+                gap: 4px;
+            }
+
+            .menu a {
+                font-size: 12px;
+                padding: 10px 9px;
+            }
+
+            .menu a i {
+                margin-right: 4px;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                width: 45%;
+            }
+        }
+
+        a:focus,
+        button:focus,
+        input:focus,
+        select:focus {
+            outline: 3px solid #ffd700;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-area">
+            <a href="index.html" aria-label="Página inicial ASSGA">
+                <img src="src/imagens/Assga_foto.jpg" alt="Logo da ASSGA">
+            </a>
+            <div class="logo">ASSGA</div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false" type="button">
+            <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+
+        <nav aria-label="Menu principal">
+            <ul class="menu" id="menu">
+                <li><a href="index.html"><i class="fas fa-house"></i> Home</a></li>
+                <li><a href="historia.html"><i class="fas fa-book-open"></i> História</a></li>
+                <li><a href="esportiva.html"><i class="fas fa-futbol"></i> Esportiva</a></li>
+                <li><a href="evento.html"><i class="fas fa-calendar-days"></i> Eventos</a></li>
+                <li><a href="estatuto.html"><i class="fas fa-file-contract"></i> Estatuto</a></li>
+                <li><a href="diretoria.html"><i class="fas fa-users"></i> Diretoria</a></li>
+                <li><a href="adminpainel.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-banner">
+        <h1><i class="fas fa-credit-card"></i> Pagamento</h1>
+        <p>Preencha seus dados, gere seu bilhete e garanta sua vaga.</p>
+    </section>
+
+    <main class="pagamento-container">
+        <div class="grid-2col">
+            <div>
+                <div class="card">
+                    <h3><i class="fas fa-user-pen"></i> Seus Dados</h3>
+                    <form id="formPagamento" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="nomeCliente"><i class="fas fa-user"></i> Nome Completo <span class="obrigatorio">*</span></label>
+                            <input type="text" id="nomeCliente" placeholder="Digite seu nome completo" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cpfCliente"><i class="fas fa-id-card"></i> CPF <span class="obrigatorio">*</span></label>
+                                <input type="text" id="cpfCliente" placeholder="000.000.000-00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nascimentoCliente"><i class="fas fa-calendar-day"></i> Nascimento</label>
+                                <input type="date" id="nascimentoCliente">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emailCliente"><i class="fas fa-envelope"></i> E-mail <span class="obrigatorio">*</span></label>
+                                <input type="email" id="emailCliente" placeholder="seuemail@exemplo.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefoneCliente"><i class="fas fa-phone"></i> Telefone <span class="obrigatorio">*</span></label>
+                                <input type="tel" id="telefoneCliente" placeholder="(84) 90000-0000" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventoCliente"><i class="fas fa-calendar-days"></i> Evento <span class="obrigatorio">*</span></label>
+                                <select id="eventoCliente" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="halloween" data-valor="100">2º Halloween ASSGA - R$ 100,00</option>
+                                    <option value="futsal" data-valor="80">Campeonato de Futsal 2026 - R$ 80,00</option>
+                                    <option value="volei" data-valor="50">Torneio de Vôlei de Praia - R$ 50,00</option>
+                                    <option value="corrida" data-valor="40">Corrida Rústica - R$ 40,00</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="metodoCliente"><i class="fas fa-credit-card"></i> Forma de Pagamento</label>
+                                <select id="metodoCliente">
+                                    <option value="pix">PIX</option>
+                                    <option value="credito">Cartão de Crédito</option>
+                                    <option value="debito">Cartão de Débito</option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="statusCliente"><i class="fas fa-circle-check"></i> Status do Pagamento</label>
+                            <select id="statusCliente">
+                                <option value="pendente">Pendente</option>
+                                <option value="pago">Pago</option>
+                                <option value="atrasado">Atrasado</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn-primary" onclick="gerarBilhete()">
+                            <i class="fas fa-ticket"></i> Gerar Bilhete
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card" id="bilheteCard" style="display:none; margin-top:25px;">
+                    <h3><i class="fas fa-ticket"></i> Seu Bilhete</h3>
+                    <div class="bilhete" id="bilheteConteudo"></div>
+                    <div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;">
+                        <button class="btn-primary btn-success" onclick="imprimirBilhete()">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                        <button class="btn-primary" onclick="enviarEmailBilhete()">
+                            <i class="fas fa-paper-plane"></i> Enviar por E-mail
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <h3><i class="fas fa-list"></i> Lista de Vagas <span style="font-size:0.6em; color:#888;">(100 vagas)</span></h3>
+                    <p style="color:#888; font-size:0.9em; margin-bottom:15px;">
+                        <i class="fas fa-circle" style="color:#28a745;"></i> Ocupada &nbsp;
+                        <i class="fas fa-circle" style="color:#ffc107;"></i> Disponível
+                    </p>
+                    <div class="vagas-lista" id="vagasLista"></div>
+                    <div style="margin-top:15px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                        <span style="font-weight:700; color:#003366;">
+                            <i class="fas fa-users"></i> Ocupadas: <span id="vagasOcupadas">0</span>/100
+                        </span>
+                        <span style="font-weight:700; color:#ffc107;">
+                            <i class="fas fa-clock"></i> Disponíveis: <span id="vagasDisponiveis">0</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:20px;">
+                    <h3><i class="fas fa-circle-info"></i> Informações</h3>
+                    <div style="display:grid; gap:10px;">
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                            <span style="color:#888;">📅 Data do Evento</span>
+                            <span style="font-weight:700; color:#003366;">28 e 29 de novembro de 2026</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                            <span style="color:#888;">📍 Local</span>
+                            <span style="font-weight:700; color:#003366;">A definir</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                            <span style="color:#888;">⏰ Horário</span>
+                            <span style="font-weight:700; color:#003366;">A partir das 17h</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                            <span style="color:#888;">🎫 Vagas Totais</span>
+                            <span style="font-weight:700; color:#003366;">100 participantes</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0;">
+                            <span style="color:#888;">📋 Inscrições</span>
+                            <span style="font-weight:700; color:#003366;">11/08 até 15/09/2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="info">
+        <h2><i class="fas fa-comments"></i> Fale Conosco</h2>
+        <div class="info-container">
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-location-dot"></i></div>
+                <h3><i class="fas fa-map-marker-alt"></i> Endereço</h3>
+                <p>São Gonçalo do Amarante - RN</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=S%C3%A3o%20Gon%C3%A7alo%20do%20Amarante%20RN" target="_blank" rel="noopener noreferrer" aria-label="Abrir endereço no Google Maps" title="Abrir no Google Maps">
+                    <i class="fas fa-map-location-dot"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <h3><i class="fas fa-at"></i> Email</h3>
+                <p>assgar2019@gmail.com</p>
+                <a href="mailto:assgar2019@gmail.com" aria-label="Enviar email para ASSGA" title="Enviar email">
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <h3><i class="fas fa-phone"></i> Telefone</h3>
+                <p>(84) 99698-1248</p>
+                <a href="tel:+5584996981248" aria-label="Ligar para ASSGA" title="Ligar">
+                    <i class="fas fa-phone-volume"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-building"></i></div>
+                <h3><i class="fas fa-id-card"></i> CNPJ</h3>
+                <p>57.242.499/0001-60</p>
+                <a href="#" aria-label="CNPJ da ASSGA" title="CNPJ" onclick="return false;">
+                    <i class="fas fa-id-card"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-copy">
+                <i class="fas fa-copyright"></i> 2026 ASSGA - Todos os direitos reservados
+                <br>
+                <i class="fas fa-building"></i> CNPJ: 57.242.499/0001-60
+                <br>
+                <i class="fas fa-futbol"></i> Associação Desportiva
+            </div>
+            <div class="footer-redes" aria-label="Redes sociais da ASSGA">
+                <a href="https://www.instagram.com/assga_2019/" target="_blank" rel="noopener noreferrer" aria-label="Instagram ASSGA" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@ASSGAESPORTES" target="_blank" rel="noopener noreferrer" aria-label="YouTube ASSGA" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://wa.me/5584996981248?text=Ol%C3%A1%2C%20eu%20estou%20aqui" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ASSGA" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:assgar2019@gmail.com" aria-label="Email ASSGA" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            const icon = document.getElementById("menuIcon");
+
+            menu.classList.toggle("active");
+            const aberto = menu.classList.contains("active");
+
+            toggle.setAttribute("aria-expanded", aberto);
+            toggle.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+
+            if (aberto) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+            } else {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        }
+
+        function fecharMenu() {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            const icon = document.getElementById("menuIcon");
+
+            menu.classList.remove("active");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Abrir menu");
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+
+        document.querySelectorAll(".menu a").forEach(function(link) {
+            link.addEventListener("click", function() {
+                if (window.innerWidth <= 767) fecharMenu();
+            });
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") fecharMenu();
+        });
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            if (window.innerWidth <= 767 &&
+                menu.classList.contains("active") &&
+                !menu.contains(event.target) &&
+                !toggle.contains(event.target)) {
+                fecharMenu();
+            }
+        });
+
+        window.addEventListener("resize", function() {
+            if (window.innerWidth > 767) fecharMenu();
+        });
+
+        // ====================================================
+        // DADOS
+        // ====================================================
+        const TOTAL_VAGAS = 100;
+
+        let clientesOcupando = [
+            { id: 1, nome: "João Silva", email: "joao@email.com", evento: "Halloween ASSGA", status: "pago" },
+            { id: 2, nome: "Maria Oliveira", email: "maria@email.com", evento: "Futsal 2026", status: "pendente" },
+            { id: 3, nome: "Carlos Santos", email: "carlos@email.com", evento: "Vôlei de Praia", status: "atrasado" },
+            { id: 4, nome: "Ana Souza", email: "ana@email.com", evento: "Corrida Rústica", status: "pago" },
+            { id: 5, nome: "Pedro Costa", email: "pedro@email.com", evento: "Halloween ASSGA", status: "pendente" },
+        ];
+
+        let contadorClientes = 6;
+
+        function renderizarVagas() {
+            const container = document.getElementById("vagasLista");
+            const ocupadas = clientesOcupando.length;
+            const disponiveis = TOTAL_VAGAS - ocupadas;
+
+            document.getElementById("vagasOcupadas").textContent = ocupadas;
+            document.getElementById("vagasDisponiveis").textContent = disponiveis;
+
+            let html = '';
+
+            clientesOcupando.forEach((c, index) => {
+                const statusClass = c.status === 'pago' ? 'badge-pago' : c.status === 'pendente' ? 'badge-pendente' :
+                    'badge-atrasado';
+                const statusText = c.status === 'pago' ? '✅ Pago' : c.status === 'pendente' ? '⏳ Pendente' : '❌ Atrasado';
+                html += `
+                    <div class="vaga-item ocupada">
+                        <div class="vaga-info">
+                            <span class="nome">${c.nome}</span>
+                            <span class="email">${c.email}</span>
+                        </div>
+                        <div class="vaga-status">
+                            <span class="badge ${statusClass}">${statusText}</span>
+                            <span class="vaga-numero">#${index + 1}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            for (let i = ocupadas + 1; i <= TOTAL_VAGAS; i++) {
+                html += `
+                    <div class="vaga-item disponivel">
+                        <div class="vaga-info">
+                            <span class="nome" style="color:#888;">Vaga disponível</span>
+                            <span class="email">Aguardando ocupação</span>
+                        </div>
+                        <div class="vaga-status">
+                            <span class="badge badge-pendente" style="background:#fff3cd; color:#856404;">📌 Disponível</span>
+                            <span class="vaga-numero">#${i}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function gerarBilhete() {
+            const nome = document.getElementById("nomeCliente").value.trim();
+            const cpf = document.getElementById("cpfCliente").value.trim();
+            const email = document.getElementById("emailCliente").value.trim();
+            const telefone = document.getElementById("telefoneCliente").value.trim();
+            const evento = document.getElementById("eventoCliente");
+            const eventoNome = evento.options[evento.selectedIndex].text;
+            const eventoValor = evento.options[evento.selectedIndex].getAttribute('data-valor') || '00';
+            const metodo = document.getElementById("metodoCliente").value;
+            const status = document.getElementById("statusCliente").value;
+
+            if (!nome || !cpf || !email || !telefone || !evento.value) {
+                alert("⚠️ Preencha todos os campos obrigatórios!");
+                return;
+            }
+
+            if (clientesOcupando.length >= TOTAL_VAGAS) {
+                alert("❌ Todas as 100 vagas estão ocupadas!");
+                return;
+            }
+
+            const novoCliente = { id: contadorClientes++, nome, email, evento: eventoNome, status };
+            clientesOcupando.push(novoCliente);
+
+            const numeroBilhete = String(clientesOcupando.length).padStart(3, '0');
+            const dataAtual = new Date().toLocaleDateString("pt-BR");
+
+            const statusMap = {
+                pago: { class: 'pago', text: '✅ PAGO' },
+                pendente: { class: 'pendente', text: '⏳ PENDENTE' },
+                atrasado: { class: 'atrasado', text: '❌ ATRASADO' }
+            };
+            const statusInfo = statusMap[status] || statusMap.pendente;
+
+            const bilheteHTML = `
+                <div class="cabecalho">
+                    <span class="titulo-bilhete"><i class="fas fa-ticket"></i> ASSGA - Bilhete</span>
+                    <span class="numero-bilhete">#${numeroBilhete}</span>
+                </div>
+                <div class="info-linha"><span class="label"><i class="fas fa-user"></i> Nome</span><span class="valor">${nome}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-id-card"></i> CPF</span><span class="valor">${cpf}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-envelope"></i> E-mail</span><span class="valor">${email}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-phone"></i> Telefone</span><span class="valor">${telefone}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-calendar-days"></i> Evento</span><span class="valor">${eventoNome}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-money-bill-wave"></i> Valor</span><span class="valor destaque">R$ ${eventoValor},00</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-credit-card"></i> Pagamento</span><span class="valor">${metodo.toUpperCase()}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-calendar-check"></i> Data</span><span class="valor">${dataAtual}</span></div>
+                <div class="info-linha"><span class="label"><i class="fas fa-hashtag"></i> Vaga</span><span class="valor">#${clientesOcupando.length} / ${TOTAL_VAGAS}</span></div>
+                <div class="qr-code"><div class="qr-placeholder"><i class="fas fa-qrcode"></i></div><p style="font-size:0.8em; color:#888; margin-top:5px;">ASSGA - ${numeroBilhete}</p></div>
+                <div class="status-bilhete ${statusInfo.class}">${statusInfo.text}</div>
+            `;
+
+            document.getElementById("bilheteConteudo").innerHTML = bilheteHTML;
+            document.getElementById("bilheteCard").style.display = "block";
+            renderizarVagas();
+            document.getElementById("bilheteCard").scrollIntoView({ behavior: 'smooth' });
+
+            localStorage.setItem('clientesOcupando', JSON.stringify(clientesOcupando));
+            alert(`✅ Bilhete gerado! Vaga #${clientesOcupando.length} ocupada.`);
+        }
+
+        function imprimirBilhete() {
+            const conteudo = document.getElementById("bilheteConteudo").innerHTML;
+            const janela = window.open('', '_blank', 'width=600,height=800');
+            janela.document.write(`
+                <html><head><title>Bilhete ASSGA</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+                <style>
+                    body { font-family: 'Segoe UI', sans-serif; padding: 40px; background: #fff; }
+                    .bilhete { max-width: 500px; margin: auto; border: 2px solid #ffd700; border-radius: 16px; padding: 25px; background: #f8f9fa; }
+                    .cabecalho { display: flex; justify-content: space-between; border-bottom: 2px dashed #dee2e6; padding-bottom: 15px; margin-bottom: 15px; }
+                    .titulo-bilhete { font-size: 1.2em; font-weight: 900; color: #003366; }
+                    .info-linha { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+                    .label { color: #888; font-weight: 600; }
+                    .valor { font-weight: 700; color: #003366; }
+                    .valor.destaque { color: #ffd700; font-size: 1.2em; }
+                    .status-bilhete { text-align: center; padding: 10px; margin-top: 15px; border-radius: 10px; font-weight: 700; }
+                    .status-bilhete.pago { background: #d4edda; color: #155724; }
+                    .status-bilhete.pendente { background: #fff3cd; color: #856404; }
+                    .status-bilhete.atrasado { background: #f8d7da; color: #721c24; }
+                    .qr-code { text-align: center; margin: 15px 0; }
+                    .qr-placeholder { display: inline-block; width: 120px; height: 120px; background: #fff; border: 2px solid #003366; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 3em; color: #003366; }
+                    .numero-bilhete { font-size: 0.9em; color: #888; }
+                </style>
+                </head><body>
+                <div class="bilhete">${conteudo}</div>
+                <p style="text-align:center; margin-top:20px; color:#888; font-size:0.9em;"><i class="fas fa-print"></i> Imprima este bilhete e apresente no evento.</p>
+                <script>window.onload = function() { window.print(); }<\/script>
+                </body></html>
+            `);
+            janela.document.close();
+        }
+
+        function enviarEmailBilhete() {
+            const email = document.getElementById("emailCliente").value.trim();
+            const nome = document.getElementById("nomeCliente").value.trim() || "Cliente";
+            const evento = document.getElementById("eventoCliente");
+            const eventoNome = evento.options[evento.selectedIndex].text || "Evento ASSGA";
+
+            if (!email) { alert("⚠️ Preencha o e-mail!"); return; }
+
+            const subject = encodeURIComponent(`ASSGA - Seu Bilhete para ${eventoNome}`);
+            const body = encodeURIComponent(
+                `Olá ${nome},\n\nSeu bilhete para o evento "${eventoNome}" está pronto!\n\n📌 Imprima o bilhete ou apresente no celular no dia do evento.\n\n📍 Local: A definir\n📅 Data: 28 e 29 de novembro de 2026\n\nAtenciosamente,\nASSGA`
+            );
+            window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_blank");
+            alert(`📧 Bilhete enviado para ${email}`);
+        }
+
+        // Máscaras
+        document.getElementById("cpfCliente").addEventListener("input", function(e) {
+            let v = this.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            if (v.length <= 3) this.value = v;
+            else if (v.length <= 6) this.value = v.replace(/(\d{3})(\d+)/, '$1.$2');
+            else if (v.length <= 9) this.value = v.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+            else this.value = v.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+        });
+
+        document.getElementById("telefoneCliente").addEventListener("input", function(e) {
+            let v = this.value.replace(/\D/g, '');
+            if (v.length > 11) v = v.slice(0, 11);
+            if (v.length <= 2) this.value = v;
+            else if (v.length <= 6) this.value = v.replace(/(\d{2})(\d+)/, '($1) $2');
+            else if (v.length <= 10) this.value = v.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            else this.value = v.replace(/(\d{2})(\d{5})(\d+)/, '($1) $2-$3');
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const saved = localStorage.getItem('clientesOcupando');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        clientesOcupando = parsed;
+                        contadorClientes = clientesOcupando.reduce((max, c) => Math.max(max, c.id || 0), 0) + 1;
+                    }
+                } catch (e) {}
+            }
+            renderizarVagas();
+        });
+    </script>
+
+</body>
+
+</html>

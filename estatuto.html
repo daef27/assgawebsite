@@ -1,87 +1,802 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASSGA - Estatuto</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="assets/styles.css">
+    <meta name="description" content="ASSGA - Associação Desportiva. Estatuto e documentos oficiais.">
+    <meta name="theme-color" content="#003366">
+    <title>Estatuto - ASSGA</title>
+
+    <link rel="icon" href="src/imagens/Assga_foto.jpg" type="image/jpeg">
+    <link rel="shortcut icon" href="src/imagens/Assga_foto.jpg" type="image/jpeg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 45px 0 35px;
+            color: #003366;
+            font-size: 2.5em;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        h2 i {
+            color: #004aad;
+            margin-right: 10px;
+        }
+
+        h3 {
+            color: #003366;
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+        }
+
+        h3 i {
+            color: #004aad;
+            margin-right: 8px;
+        }
+
+        /* ====================================================
+           HEADER
+        ==================================================== */
+        header {
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 8px 32px rgba(0, 51, 102, .3);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform .3s ease;
+        }
+
+        .logo-area:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-area a {
+            display: flex;
+            text-decoration: none;
+        }
+
+        .logo-area img {
+            width: 56px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu {
+            list-style: none;
+            display: inline-grid;
+            grid-auto-flow: column;
+            gap: 10px;
+            margin-left: auto;
+            align-items: center;
+        }
+
+        .menu li {
+            position: relative;
+        }
+
+        .menu a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 12px 17px;
+            border-radius: 25px;
+            transition: all .4s ease;
+        }
+
+        .menu a i {
+            margin-right: 7px;
+            color: #fff;
+            transition: .3s;
+        }
+
+        .menu a:hover {
+            color: #003366;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            box-shadow: 0 8px 24px rgba(255, 215, 0, .4);
+            transform: translateY(-3px);
+        }
+
+        .menu a:hover i {
+            color: #fff;
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            cursor: pointer;
+            margin-left: auto;
+            border: 0;
+            border-radius: 10px;
+            color: #fff;
+            background: transparent;
+            transition: .3s;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .menu-toggle i {
+            pointer-events: none;
+            color: #fff;
+        }
+
+        .page-banner {
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .page-banner h1 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .page-banner h1 i {
+            color: #ffd700;
+            margin-right: 15px;
+        }
+
+        .page-banner p {
+            font-size: 1.2em;
+            opacity: .9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .estatuto-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .estatuto-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, .1);
+            border-left: 6px solid #004aad;
+            transition: all .4s ease;
+        }
+
+        .estatuto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 50px rgba(0, 74, 173, .2);
+            border-left-color: #ffd700;
+        }
+
+        .estatuto-card p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .estatuto-card p i {
+            color: #004aad;
+            margin-right: 6px;
+        }
+
+        .estatuto-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .estatuto-card ul li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f0f4fa;
+            border-radius: 10px;
+            color: #444;
+            font-size: 1em;
+            transition: all .3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .estatuto-card ul li:hover {
+            background: #e8eef6;
+            border-left-color: #ffd700;
+            transform: translateX(5px);
+        }
+
+        .estatuto-card ul li i {
+            color: #004aad;
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #003366 0%, #004aad 100%);
+            color: #fff;
+            padding: 16px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 800;
+            border: 2px solid #ffd700;
+            box-shadow: 0 8px 20px rgba(0, 51, 102, .3);
+            transition: all .3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 74, 173, .4);
+        }
+
+        .btn-download i {
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        /* ====================================================
+           FALE CONOSCO
+        ==================================================== */
+        .info {
+            background: linear-gradient(135deg, #e9eef5 0%, #d4e1ed 100%);
+            padding: 50px 20px;
+            margin-top: 40px;
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .info-card {
+            width: 250px;
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            padding: 28px 22px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+            transition: all .4s ease;
+            border-top: 4px solid #004aad;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 48px rgba(0, 74, 173, .2);
+            border-top-color: #ffd700;
+        }
+
+        .info-card .icon {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #003366, #004aad);
+            color: #ffd700;
+            font-size: 28px;
+            box-shadow: 0 8px 20px rgba(0, 51, 102, .25);
+            transition: .4s;
+        }
+
+        .info-card:hover .icon {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        .info-card h3 {
+            color: #003366;
+            margin: 12px 0;
+            font-size: 1.3em;
+        }
+
+        .info-card h3 i {
+            color: #004aad;
+            margin-right: 6px;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .info-card a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            color: #fff;
+            background: #004aad;
+            margin-top: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all .3s ease;
+        }
+
+        .info-card a:hover {
+            color: #003366;
+            background: #ffd700;
+            transform: scale(1.15);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #003366 0%, #002244 100%);
+            color: #fff;
+            padding: 35px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: .9;
+        }
+
+        .footer-copy i {
+            color: #ffd700;
+            margin-right: 5px;
+        }
+
+        .footer-redes {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-redes a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 21px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .10);
+            text-decoration: none;
+            transition: all .3s ease;
+        }
+
+        .footer-redes a:hover {
+            color: #003366;
+            background: #ffd700;
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        @media (max-width: 767px) {
+            header {
+                padding: 12px 15px;
+            }
+
+            .logo-area {
+                gap: 10px;
+            }
+
+            .logo-area img {
+                width: 48px;
+                height: 60px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 76px;
+                left: 15px;
+                right: 15px;
+                width: calc(100% - 30px);
+                grid-auto-flow: row;
+                gap: 4px;
+                margin: 0;
+                padding: 15px;
+                background: linear-gradient(135deg, rgba(0, 51, 102, .98), rgba(0, 74, 173, .98));
+                border-radius: 15px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, .30);
+            }
+
+            .menu.active {
+                display: grid;
+            }
+
+            .menu li {
+                width: 100%;
+                padding: 2px 0;
+            }
+
+            .menu a {
+                width: 100%;
+                text-align: left;
+                padding: 13px 15px;
+            }
+
+            .menu a i {
+                width: 25px;
+                text-align: center;
+                color: #fff;
+            }
+
+            .page-banner {
+                padding: 40px 15px;
+            }
+
+            .page-banner h1 {
+                font-size: 2em;
+            }
+
+            .page-banner p {
+                font-size: 1em;
+            }
+
+            .estatuto-card {
+                padding: 25px;
+            }
+
+            .estatuto-card h3 {
+                font-size: 1.3em;
+            }
+
+            .estatuto-card ul li {
+                font-size: 0.95em;
+                padding: 8px 12px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin: 30px 0;
+            }
+
+            .info-card {
+                width: 100%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-redes {
+                margin-top: 15px;
+            }
+
+            .btn-download {
+                width: 100%;
+                justify-content: center;
+                font-size: 1em;
+                padding: 14px 20px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            header {
+                padding: 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .menu {
+                gap: 4px;
+            }
+
+            .menu a {
+                font-size: 12px;
+                padding: 10px 9px;
+            }
+
+            .menu a i {
+                margin-right: 4px;
+            }
+
+            .info-card {
+                width: 45%;
+            }
+        }
+
+        a:focus,
+        button:focus {
+            outline: 3px solid #ffd700;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                scroll-behavior: auto !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <header class="header">
-        <div class="brand"><i class="fas fa-shield-alt"></i> ASSGA<span>.</span></div>
-        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
-        <nav class="nav-menu" id="navMenu">
-            <a href="index.html"><i class="fas fa-home"></i> Início</a>
-            <a href="historia.html"><i class="fas fa-book"></i> História</a>
-            <a href="esportiva.html"><i class="fas fa-futbol"></i> Esportiva</a>
-            <a href="evento.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
-            <a href="estatuto.html" class="active"><i class="fas fa-file-alt"></i> Estatuto</a>
-            <a href="diretoria.html"><i class="fas fa-users"></i> Diretoria</a>
-            <a href="admin-login.html"><i class="fas fa-lock"></i> Admin</a>
+
+    <header>
+        <div class="logo-area">
+            <a href="index.html" aria-label="Página inicial ASSGA">
+                <img src="src/imagens/Assga_foto.jpg" alt="Logo da ASSGA">
+            </a>
+            <div class="logo">ASSGA</div>
+        </div>
+
+        <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false" type="button">
+            <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+
+        <nav aria-label="Menu principal">
+            <ul class="menu" id="menu">
+                <li><a href="index.html"><i class="fas fa-house"></i> Home</a></li>
+                <li><a href="historia.html"><i class="fas fa-book-open"></i> História</a></li>
+                <li><a href="esportiva.html"><i class="fas fa-futbol"></i> Esportiva</a></li>
+                <li><a href="evento.html"><i class="fas fa-calendar-days"></i> Eventos</a></li>
+                <li><a href="estatuto.html"><i class="fas fa-file-contract"></i> Estatuto</a></li>
+                <li><a href="diretoria.html"><i class="fas fa-users"></i> Diretoria</a></li>
+                <li><a href="adminpainel.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+            </ul>
         </nav>
     </header>
 
-    <main class="main-content">
-        <h1 class="page-title"><i class="fas fa-file-alt"></i> Estatuto</h1>
-        <div class="page-subtitle">Documento oficial da ASSGA</div>
+    <section class="page-banner">
+        <h1><i class="fas fa-file-contract"></i> Estatuto</h1>
+        <p>Documentos oficiais e normas da ASSGA.</p>
+    </section>
 
-        <div style="background:var(--branco);border-radius:var(--radius);padding:28px;box-shadow:var(--sombra);">
-            <p style="line-height:1.8;color:#1e293b;">
-                O estatuto da ASSGA estabelece as normas de funcionamento, direitos e deveres dos associados, bem como a estrutura administrativa.
-            </p>
-            <p style="margin-top:16px;line-height:1.8;color:#334155;">
-                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo I - Da Associação<br>
-                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo II - Dos Associados<br>
-                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo III - Da Diretoria<br>
-                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo IV - Do Conselho Fiscal<br>
-                <i class="fas fa-check-circle" style="color:var(--dourado);"></i> Capítulo V - Das Eleições
-            </p>
-            <div style="margin-top:20px;padding:16px;background:#f0f4ff;border-radius:8px;">
-                <i class="fas fa-download" style="color:var(--azul);"></i> <a href="#" style="color:var(--azul);font-weight:600;">Baixar estatuto completo (PDF)</a>
-            </div>
+    <main class="estatuto-container">
+        <div class="estatuto-card">
+            <h3><i class="fas fa-building"></i> Dados da Associação</h3>
+            <p><i class="fas fa-id-card"></i> <strong>Nome:</strong> ASSGA - Associação Desportiva</p>
+            <p><i class="fas fa-calendar"></i> <strong>Data de Fundação:</strong> 2019</p>
+            <p><i class="fas fa-map-pin"></i> <strong>Sede:</strong> São Gonçalo do Amarante - RN</p>
+            <p><i class="fas fa-file-invoice"></i> <strong>CNPJ:</strong> 57.242.499/0001-60</p>
+            <p><i class="fas fa-futbol"></i> <strong>Atividades:</strong> Esporte, integração, eventos e participação social.</p>
         </div>
 
-        <!-- EVENTOS PUBLICADOS -->
-        <div style="background:var(--branco);border-radius:var(--radius);padding:24px;box-shadow:var(--sombra);margin-top:24px;">
-            <h3 style="color:var(--azul);display:flex;gap:10px;margin-bottom:12px;">
-                <i class="fas fa-calendar-alt" style="color:var(--dourado);"></i> Eventos Publicados
-            </h3>
-            <div class="publish-grid" id="publicEventsEstatuto">
-                <div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px 0;">
-                    <i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:6px;"></i>
-                    Carregando eventos...
-                </div>
-            </div>
+        <div class="estatuto-card">
+            <h3><i class="fas fa-bullseye"></i> Objetivos</h3>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Promover a prática de atividades esportivas e recreativas</li>
+                <li><i class="fas fa-check-circle"></i> Fomentar a integração social e comunitária</li>
+                <li><i class="fas fa-check-circle"></i> Organizar eventos esportivos e culturais</li>
+                <li><i class="fas fa-check-circle"></i> Estimular a participação de jovens e adultos em atividades saudáveis</li>
+                <li><i class="fas fa-check-circle"></i> Estabelecer parcerias com outras entidades e órgãos públicos</li>
+            </ul>
+        </div>
+
+        <div class="estatuto-card">
+            <h3><i class="fas fa-users"></i> Diretoria</h3>
+            <ul>
+                <li><i class="fas fa-user-tie"></i> Presidente</li>
+                <li><i class="fas fa-user-tie"></i> Vice-Presidente</li>
+                <li><i class="fas fa-user-tie"></i> Secretário</li>
+                <li><i class="fas fa-user-tie"></i> Tesoureiro</li>
+                <li><i class="fas fa-user-tie"></i> Diretor de Esportes</li>
+                <li><i class="fas fa-user-tie"></i> Conselho Fiscal</li>
+            </ul>
+        </div>
+
+        <div class="estatuto-card">
+            <h3><i class="fas fa-gavel"></i> Disposições Gerais</h3>
+            <p><i class="fas fa-circle"></i> A ASSGA é uma associação sem fins lucrativos.</p>
+            <p><i class="fas fa-circle"></i> A administração é exercida pela Diretoria, eleita pelos associados.</p>
+            <p><i class="fas fa-circle"></i> O exercício social coincide com o ano civil.</p>
+            <p><i class="fas fa-circle"></i> A ASSGA rege-se por este estatuto e pelas leis vigentes.</p>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="#" class="btn-download" onclick="alert('Download do estatuto em PDF.')">
+                <i class="fas fa-file-pdf"></i> Baixar Estatuto Completo (PDF)
+            </a>
         </div>
     </main>
 
-    <footer class="footer">&copy; 2026 ASSGA</footer>
-    <script src="assets/site.js"></script>
+    <section class="info">
+        <h2><i class="fas fa-comments"></i> Fale Conosco</h2>
+        <div class="info-container">
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-location-dot"></i></div>
+                <h3><i class="fas fa-map-marker-alt"></i> Endereço</h3>
+                <p>São Gonçalo do Amarante - RN</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=S%C3%A3o%20Gon%C3%A7alo%20do%20Amarante%20RN" target="_blank" rel="noopener noreferrer" aria-label="Abrir endereço no Google Maps" title="Abrir no Google Maps">
+                    <i class="fas fa-map-location-dot"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <h3><i class="fas fa-at"></i> Email</h3>
+                <p>assgar2019@gmail.com</p>
+                <a href="mailto:assgar2019@gmail.com" aria-label="Enviar email para ASSGA" title="Enviar email">
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <h3><i class="fas fa-phone"></i> Telefone</h3>
+                <p>(84) 99698-1248</p>
+                <a href="tel:+5584996981248" aria-label="Ligar para ASSGA" title="Ligar">
+                    <i class="fas fa-phone-volume"></i>
+                </a>
+            </div>
+
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-building"></i></div>
+                <h3><i class="fas fa-id-card"></i> CNPJ</h3>
+                <p>57.242.499/0001-60</p>
+                <a href="#" aria-label="CNPJ da ASSGA" title="CNPJ" onclick="return false;">
+                    <i class="fas fa-id-card"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-copy">
+                <i class="fas fa-copyright"></i> 2026 ASSGA - Todos os direitos reservados
+                <br>
+                <i class="fas fa-building"></i> CNPJ: 57.242.499/0001-60
+                <br>
+                <i class="fas fa-futbol"></i> Associação Desportiva
+            </div>
+            <div class="footer-redes" aria-label="Redes sociais da ASSGA">
+                <a href="https://www.instagram.com/assga_2019/" target="_blank" rel="noopener noreferrer" aria-label="Instagram ASSGA" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@ASSGAESPORTES" target="_blank" rel="noopener noreferrer" aria-label="YouTube ASSGA" title="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://wa.me/5584996981248?text=Ol%C3%A1%2C%20eu%20estou%20aqui" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp ASSGA" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:assgar2019@gmail.com" aria-label="Email ASSGA" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const eventos = JSON.parse(localStorage.getItem('assga_eventos') || '[]')
-                .filter(e => e.status === 'publicado');
-            const container = document.getElementById('publicEventsEstatuto');
-            if (eventos.length === 0) {
-                container.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#94a3b8;padding:20px 0;">
-                    <i class="fas fa-inbox" style="font-size:1.5rem;display:block;margin-bottom:6px;"></i>
-                    Nenhum evento publicado no momento.
-                </div>`;
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            const icon = document.getElementById("menuIcon");
+
+            menu.classList.toggle("active");
+            const aberto = menu.classList.contains("active");
+
+            toggle.setAttribute("aria-expanded", aberto);
+            toggle.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+
+            if (aberto) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
             } else {
-                container.innerHTML = eventos.map(e => `
-                    <div class="publish-card">
-                        <div class="titulo">${e.titulo}</div>
-                        <div class="meta">
-                            <span><i class="fas fa-calendar-alt"></i> ${e.data ? e.data.split('-').reverse().join('/') : ''}</span>
-                            <span><i class="fas fa-tag"></i> Publicado</span>
-                        </div>
-                        <div class="desc">${e.descricao || 'Sem descrição'}</div>
-                        <span class="badge publicado">Publicado</span>
-                    </div>
-                `).join('');
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        }
+
+        function fecharMenu() {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            const icon = document.getElementById("menuIcon");
+
+            menu.classList.remove("active");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.setAttribute("aria-label", "Abrir menu");
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+
+        document.querySelectorAll(".menu a").forEach(function(link) {
+            link.addEventListener("click", function() {
+                if (window.innerWidth <= 767) fecharMenu();
+            });
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") fecharMenu();
+        });
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("menu");
+            const toggle = document.getElementById("menuToggle");
+            if (window.innerWidth <= 767 &&
+                menu.classList.contains("active") &&
+                !menu.contains(event.target) &&
+                !toggle.contains(event.target)) {
+                fecharMenu();
             }
         });
+
+        window.addEventListener("resize", function() {
+            if (window.innerWidth > 767) fecharMenu();
+        });
     </script>
+
 </body>
+
 </html>
